@@ -4,22 +4,18 @@ class Board:
         
     def __init__(self, numbers):
         self.numbers = np.array(numbers)
-        self.numbers_transpose = np.transpose(self.numbers)
+        self.shape = self.numbers.shape
         self.called = np.zeros_like(self.numbers)
-        self.called_transpose = np.transpose(self.called)
     
     def call(self, number):
         self.called += (self.numbers == number)
         
     def is_winning(self):
-        for row in self.called:
-            if np.all(row):
-                return True
-        for col in self.called_transpose:
-            if np.all(col):
-                return True
-        return False
-    
+        row_sums = np.sum(self.called, 1)
+        col_sums = np.sum(self.called, 0)
+		
+        return self.shape[0] in row_sums or  self.shape[0] in col_sums
+            
     def get_sum_not_called(self):
         return np.sum(np.multiply(self.numbers, (1 - self.called)))
     
@@ -43,7 +39,7 @@ def main():
         else:
             matrix.append([int(number) 
                           for number in line.strip().split()])
-    
+    board = boards[0]
     for call in calls:
         for board in boards:
             board.call(call)
