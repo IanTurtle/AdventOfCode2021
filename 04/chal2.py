@@ -17,7 +17,7 @@ class Board:
         row_sums = np.sum(self.called, 1)
         col_sums = np.sum(self.called, 0)
 		
-        return self.shape[0] in row_sums or  self.shape[0] in col_sums
+        return self.shape[0] in row_sums or  self.shape[1] in col_sums
     
     def get_sum_not_called(self):
         return np.sum(np.multiply(self.numbers, (1 - self.called)))
