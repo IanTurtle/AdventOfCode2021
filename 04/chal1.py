@@ -39,7 +39,6 @@ def main():
         else:
             matrix.append([int(number) 
                           for number in line.strip().split()])
-    board = boards[0]
     for call in calls:
         for board in boards:
             board.call(call)
